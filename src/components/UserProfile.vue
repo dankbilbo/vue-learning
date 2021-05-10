@@ -8,30 +8,18 @@
         <div class="admin-profile-logo" v-if="user.isAdmin"> ADMIN </div>
         <div class="admin-profile-logo" v-else> MEMBER </div>
     </div>
-    <table align="center" style="margin-top : 30px">
-        <tr>
-            <th>ID</th>
-            <th>Content</th>
-        </tr>
-        <!-- <tr>
-            <td><p>{{user.statuses[0].id}}</p></td>
-            <td><p>{{user.statuses[0].content}}</p></td>
-        </tr>
-        <tr>
-            <td><p>{{user.statuses[1].id}}</p></td>
-            <td><p>{{user.statuses[1].content}}</p></td>
-        </tr> -->
-    
-    <tr v-for="status in user.statuses" :key="status.id" >
-        <td>status {{status.id}} : </td>
-        <td>{{status.content}}</td>
-    </tr>
-    </table>
+    <div>
+        <Statuses v-for="status in user.post" :key="status.id" :username="user.username" :status="status"/>
+    </div>
 </template>
 
 <script>
+
+import Statuses from "./components/Status"
+
 export default {
   name: 'UserProfile',
+  components : {Statuses},
   data(){
     return {
       followers : 0,
@@ -41,7 +29,7 @@ export default {
         firstName : "Nghia",
         lastName : "Bui",
         isAdmin : false,
-        statuses : [
+        post : [
             {id : 1, content : "bruh"},
             {id : 2 , content : "bruh2"}
         ]
